@@ -36,7 +36,8 @@ function Invoke-RmtAzure {
         [string]$vm_password,
         [string]$vm_name,
         [string]$azure_service_name,
-        [string]$scriptPath
+        [string]$scriptPath,
+        [string[]]$ArgumentList
     )
     write-Host ("Configuring credentials...")
 
@@ -67,6 +68,7 @@ function Invoke-RmtAzure {
     -ConnectionUri $uri.ToString() `
     -Credential $credential `
     -SessionOption $sessionopt `
-    -FilePath $scriptPath
+    -FilePath $scriptPath `
+    -ArgumentList $ArgumentList
 }
 Export-ModuleMember -Function Stop-AllAzureInstances, Get-AzureInstancesWithName, Invoke-RmtAzure
