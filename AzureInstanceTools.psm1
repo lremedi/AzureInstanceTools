@@ -62,6 +62,10 @@ function Invoke-RmtAzure {
     $secpwd = ConvertTo-SecureString $vm_password -AsPlainText -Force
     $credential = New-Object System.Management.Automation.PSCredential($vm_username, $secpwd)
     $sessionopt = New-PSSessionOption -SkipCNCheck -SkipCACheck
+    
+    Enable-PSRemoting -Force
+    Set-Item wsman:\localhost\client\trustedhosts * -Force
+    Restart-Service WinRM
 
     write-Host "Executing $scriptPath in $vm_name..."
     Invoke-Command `
